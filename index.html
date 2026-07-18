@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>装机工坊 · 组装电脑</title>
+  <meta name="description" content="组装电脑买卖。办公 / 游戏 / 高配三档透明报价。微信、Facebook 下单。" />
+  <meta property="og:title" content="装机工坊 · 组装电脑" />
+  <meta property="og:description" content="三档配置，透明报价，可代装。微信 / Facebook 联系下单。" />
+  <meta property="og:image" content="images/hero-gaming.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --line: #2a2a2a;
+      --text: #f5f5f5;
+      --muted: #a3a3a3;
+      --green: #76b900;
+      --green2: #bff230;
+      --soft: rgba(118,185,0,.12);
+      --r: 14px;
+      --max: 980px;
+      --font: "Noto Sans SC", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    .wrap { width: min(100% - 28px, var(--max)); margin: 0 auto; }
+
+    /* top contact strip */
+    .topbar {
+      background: #111;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .topbar .wrap {
+      display: flex; flex-wrap: wrap; gap: 8px 18px;
+      justify-content: space-between; align-items: center;
+      min-height: 40px; padding: 8px 0;
+    }
+    .topbar b { color: var(--green2); font-weight: 700; }
+    .topbar a { color: var(--text); font-weight: 600; }
+    .topbar a:hover { color: var(--green2); }
+
+    /* nav */
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav .wrap {
+      height: 58px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .logo { font-weight: 900; font-size: 18px; letter-spacing: -0.02em; }
+    .logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a {
+      padding: 8px 12px; border-radius: 999px;
+      color: var(--muted); font-size: 14px; font-weight: 600;
+    }
+    .nav-links a:hover { color: var(--text); background: #1a1a1a; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 44px; padding: 0 18px; border-radius: 999px;
+      border: none; font-weight: 800; cursor: pointer;
+    }
+    .btn-green { background: var(--green); color: #071000; }
+    .btn-green:hover { background: var(--green2); }
+    .btn-line {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--line);
+    }
+    .btn-line:hover { border-color: var(--green); color: var(--green2); }
+    .btn-block { width: 100%; }
+    .btn-sm { min-height: 38px; padding: 0 14px; font-size: 13px; }
+
+    /* hero */
+    .hero { padding: 28px 0 12px; }
+    .hero-box {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 0;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .hero-img {
+      min-height: 280px;
+      background: #000 center/cover no-repeat;
+      background-image: url("images/hero-gaming.png");
+      position: relative;
+    }
+    .hero-img::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 40%, rgba(20,20,20,.35));
+    }
+    .hero-copy { padding: 28px 26px; display: flex; flex-direction: column; justify-content: center; }
+    .tag {
+      color: var(--green); font-size: 12px; font-weight: 800;
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    h1 {
+      font-size: clamp(26px, 4.5vw, 36px);
+      line-height: 1.15; letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .lead { color: var(--muted); font-size: 15px; margin-bottom: 18px; max-width: 36ch; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+    .quick {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .quick div {
+      background: #0f0f0f; border: 1px solid var(--line);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .quick .k { font-size: 11px; color: var(--muted); font-weight: 700; }
+    .quick .v { font-size: 14px; font-weight: 800; margin-top: 2px; }
+
+    /* section */
+    section { padding: 40px 0; }
+    h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      letter-spacing: -0.02em; margin-bottom: 6px;
+    }
+    .sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+
+    /* products */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .card.hot { border-color: rgba(118,185,0,.55); box-shadow: 0 0 0 1px rgba(118,185,0,.15); }
+    .card-img { aspect-ratio: 16/11; background: #000; }
+    .card-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .card-top { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+    .card h3 { font-size: 18px; }
+    .pill {
+      font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 999px;
+      background: var(--soft); color: var(--green2); white-space: nowrap;
+    }
+    .pill.orange { background: rgba(239,145,0,.15); color: #ffb84d; }
+    .price {
+      font-size: 22px; font-weight: 900; color: var(--green2); letter-spacing: -0.02em;
+    }
+    .price small { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .for { color: var(--muted); font-size: 13px; }
+    .list { list-style: none; display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+    .list li {
+      display: grid; grid-template-columns: 52px 1fr; gap: 6px;
+    }
+    .list b { color: var(--text); font-weight: 700; }
+    .card-actions { display: grid; gap: 8px; margin-top: auto; padding-top: 6px; }
+
+    /* simple 3 steps */
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .step {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 18px;
+    }
+    .n {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--soft); color: var(--green);
+      display: grid; place-items: center; font-weight: 900; margin-bottom: 10px;
+    }
+    .step h3 { font-size: 16px; margin-bottom: 6px; }
+    .step p { color: var(--muted); font-size: 13px; }
+
+    /* parts banner */
+    .parts-banner {
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 0;
+      border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+      background: var(--card);
+    }
+    .parts-img {
+      min-height: 220px;
+      background: #000 center/cover no-repeat;
+      background-image: url("images/parts.png");
+    }
+    .parts-copy { padding: 22px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chip {
+      background: #0f0f0f; border: 1px solid var(--line);
+      border-radius: 999px; padding: 7px 12px; font-size: 12px; font-weight: 700;
+      color: var(--muted);
+    }
+
+    /* contact */
+    .contact-box {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      background: linear-gradient(180deg, #15200a 0%, var(--card) 50%);
+      border: 1px solid rgba(118,185,0,.4);
+      border-radius: 18px;
+      padding: 22px;
+    }
+    .contact-list { display: grid; gap: 10px; margin-top: 14px; }
+    .c-item {
+      display: flex; gap: 12px; align-items: center;
+      background: rgba(0,0,0,.28); border: 1px solid var(--line);
+      border-radius: 12px; padding: 12px 14px;
+    }
+    .c-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--soft); color: var(--green2);
+      display: grid; place-items: center; font-weight: 900; font-size: 14px;
+      flex: 0 0 auto;
+    }
+    .c-item .l { font-size: 12px; color: var(--muted); font-weight: 700; }
+    .c-item .v { font-size: 16px; font-weight: 800; word-break: break-all; }
+    .c-item a.v:hover { color: var(--green2); }
+
+    .form {
+      background: #0d0d0d; border: 1px solid var(--line);
+      border-radius: 14px; padding: 16px;
+    }
+    .form h3 { font-size: 16px; margin-bottom: 12px; }
+    .field { margin-bottom: 10px; }
+    .field label {
+      display: block; font-size: 12px; color: var(--muted);
+      font-weight: 700; margin-bottom: 5px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%; background: #151515; border: 1px solid #333;
+      border-radius: 10px; padding: 11px 12px; outline: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--green);
+    }
+    .field textarea { min-height: 72px; resize: vertical; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .toast {
+      display: none; margin-top: 10px; padding: 10px 12px;
+      border-radius: 10px; background: var(--soft);
+      border: 1px solid rgba(118,185,0,.35); color: var(--green2);
+      font-size: 13px; font-weight: 700;
+    }
+    .toast.show { display: block; }
+    .hint { margin-top: 8px; font-size: 12px; color: #777; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 22px 0 80px; color: #777; font-size: 12px;
+    }
+    .foot {
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
+    }
+
+    .float {
+      position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30;
+      display: none; gap: 8px;
+    }
+    .float .btn { flex: 1; box-shadow: 0 10px 28px rgba(0,0,0,.45); }
+
+    @media (max-width: 860px) {
+      .hero-box, .cards, .steps, .parts-banner, .contact-box, .row2 {
+        grid-template-columns: 1fr;
+      }
+      .hero-img { min-height: 200px; }
+      .nav-links a:not(.btn) { display: none; }
+      .float { display: flex; }
+      body { padding-bottom: 76px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 改联系方式：只改下面 CONFIG（页面会自动显示） -->
+  <script>
+    window.SHOP = {
+      name: "装机工坊",
+      wechat: "ZhuangJiGongFang",       // 改成你的微信号
+      phone: "138-0000-0000",           // 改成你的电话
+      facebook: "https://www.facebook.com/", // 改成你的主页
+      messenger: "https://m.me/",          // 改成 https://m.me/你的主页用户名
+      hours: "每天 10:00–22:00",
+      city: "同城可面交 / 可快递"
+    };
+  </script>
+
+  <div class="topbar">
+    <div class="wrap">
+      <div>微信 <b id="tb-wechat">—</b> · 电话 <b id="tb-phone">—</b> · <span id="tb-hours">—</span></div>
+      <div>
+        <a id="tb-fb" href="#" target="_blank" rel="noopener">Facebook</a>
+        ·
+        <a id="tb-msg" href="#" target="_blank" rel="noopener">Messenger 下单</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="logo" href="#top"><span id="logo-name">装机</span>工坊</a>
+      <div class="nav-links">
+        <a href="#products">配置</a>
+        <a href="#how">怎么买</a>
+        <a href="#contact">联系</a>
+        <a class="btn btn-green btn-sm" href="#contact">马上联系</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-box">
+          <div class="hero-img" role="img" aria-label="游戏组装机实拍"></div>
+          <div class="hero-copy">
+            <div class="tag">组装电脑 · 可代装</div>
+            <h1>三档配置<br />清楚报价，直接下单</h1>
+            <p class="lead">办公 / 游戏 / 高配。内存 32G 起，电源不缩水。微信、Facebook 都能买。</p>
+            <div class="hero-actions">
+              <a class="btn btn-green" href="#products">看三档机器</a>
+              <a class="btn btn-line" id="hero-msg" href="#contact">微信 / FB 联系</a>
+            </div>
+            <div class="quick">
+              <div><div class="k">办公</div><div class="v">¥3,500 起</div></div>
+              <div><div class="k">游戏（推荐）</div><div class="v">¥5,500 起</div></div>
+              <div><div class="k">2K / 剪辑</div><div class="v">¥9,000 起</div></div>
+              <div><div class="k">服务</div><div class="v" id="hero-city">可代装</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="wrap">
+        <div class="tag">选机器</div>
+        <h2>三档主机（不含显示器）</h2>
+        <p class="sub">点「按这档询价」会带上配置；也可以先加微信 / Facebook。</p>
+
+        <div class="cards">
+          <!-- A -->
+          <article class="card">
+            <div class="card-img"><img src="images/tier-office.png" alt="办公组装机" width="640" height="440" loading="lazy" /></div>
+            <div class="card-body">
+              <div class="card-top">
+                <h3>A · 办公学习</h3>
+                <span class="pill">入门</span>
+              </div>
+              <div class="price">¥3,500–4,500 <small>主机</small></div>
+              <p class="for">Word / 网课 / 视频会议 / 轻度娱乐</p>
+              <ul class="list">
+                <li><b>CPU</b><span>带核显 i5 或 AMD 8000G</span></li>
+                <li><b>内存</b><span>32GB DDR5</span></li>
+                <li><b>硬盘</b><span>1TB 固态</span></li>
+                <li><b>显卡</b><span>核显（以后可加独显）</span></li>
+              </ul>
+              <div class="card-actions">
+                <a class="btn btn-green btn-block" href="#contact" data-tier="A">按这档询价</a>
+                <button class="btn btn-line btn-block btn-sm" type="button" data-copy="A">复制配置</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- B -->
+          <article class="card hot">
+            <div class="card-img"><img src="images/hero-gaming.png" alt="游戏组装机" width="640" height="440" loading="lazy" /></div>
+            <div class="card-body">
+              <div class="card-top">
+                <h3>B · 主流游戏</h3>
+                <span class="pill orange">★ 最推荐</span>
+              </div>
+              <div class="price">¥5,500–8,000 <small>主机</small></div>
+              <p class="for">1080p 高画质 / 入门 2K · 网游 + 3A</p>
+              <ul class="list">
+                <li><b>CPU</b><span>R5 7500F / 7600</span></li>
+                <li><b>显卡</b><span>RTX 5060 级甜品卡</span></li>
+                <li><b>内存</b><span>32GB DDR5-6000</span></li>
+                <li><b>电源</b><span>650–750W 金牌</span></li>
+              </ul>
+              <div class="card-actions">
+                <a class="btn btn-green btn-block" href="#contact" data-tier="B">按这档询价</a>
+                <button class="btn btn-line btn-block btn-sm" type="button" data-copy="B">复制配置</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- C -->
+          <article class="card">
+            <div class="card-img"><img src="images/tier-pro.png" alt="高配组装机" width="640" height="440" loading="lazy" /></div>
+            <div class="card-body">
+              <div class="card-top">
+                <h3>C · 2K / 剪辑</h3>
+                <span class="pill">高配</span>
+              </div>
+              <div class="price">¥9,000–15,000 <small>主机</small></div>
+              <p class="for">2K 高画质 · 直播 · 中等剪辑工程</p>
+              <ul class="list">
+                <li><b>CPU</b><span>R7 或 i5/i7 高规格</span></li>
+                <li><b>显卡</b><span>RTX 5070 / 5070 Ti 级</span></li>
+                <li><b>内存</b><span>32–64GB DDR5</span></li>
+                <li><b>硬盘</b><span>2TB 固态</span></li>
+              </ul>
+              <div class="card-actions">
+                <a class="btn btn-green btn-block" href="#contact" data-tier="C">按这档询价</a>
+                <button class="btn btn-line btn-block btn-sm" type="button" data-copy="C">复制配置</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" style="padding-top:8px;">
+      <div class="wrap">
+        <div class="tag">流程</div>
+        <h2>怎么买？三步</h2>
+        <p class="sub">不用自己懂硬件。说预算和用途就行。</p>
+        <div class="steps">
+          <div class="step">
+            <div class="n">1</div>
+            <h3>选档或说需求</h3>
+            <p>办公 A / 游戏 B / 高配 C。或直接说预算、玩游戏还是剪辑。</p>
+          </div>
+          <div class="step">
+            <div class="n">2</div>
+            <h3>微信 / FB 联系</h3>
+            <p>发配置清单给你确认。需要的话帮你检查兼容、代装。</p>
+          </div>
+          <div class="step">
+            <div class="n">3</div>
+            <h3>付款发货 / 面交</h3>
+            <p>定金或全款按约定。同城可面交，外地可快递。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:12px;">
+      <div class="wrap">
+        <div class="parts-banner">
+          <div class="parts-img" role="img" aria-label="电脑配件"></div>
+          <div class="parts-copy">
+            <div class="tag">配件</div>
+            <h2>一台主机 8 样</h2>
+            <p class="sub" style="margin-bottom:0;">CPU、主板、内存、固态、显卡、电源、机箱、散热。我们按用途配好，不用你自己拼单。</p>
+            <div class="chips">
+              <span class="chip">CPU</span><span class="chip">主板</span><span class="chip">内存 32G+</span>
+              <span class="chip">固态</span><span class="chip">显卡</span><span class="chip">金牌电源</span>
+              <span class="chip">机箱</span><span class="chip">散热</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="tag">联系下单</div>
+        <h2>加微信或 Facebook</h2>
+        <p class="sub">下面号码和链接可直接点。表单会生成一段话，复制发给我就行。</p>
+
+        <div class="contact-box">
+          <div>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:4px;">营业时间 <b style="color:var(--text)" id="c-hours">—</b></p>
+            <p style="color:var(--muted);font-size:14px;" id="c-city">—</p>
+            <div class="contact-list">
+              <div class="c-item">
+                <div class="c-icon">微</div>
+                <div>
+                  <div class="l">微信</div>
+                  <div class="v" id="c-wechat">—</div>
+                </div>
+                <button class="btn btn-line btn-sm" type="button" id="copyWechat" style="margin-left:auto;">复制</button>
+              </div>
+              <div class="c-item">
+                <div class="c-icon">电</div>
+                <div>
+                  <div class="l">电话</div>
+                  <a class="v" id="c-phone" href="#">—</a>
+                </div>
+              </div>
+              <div class="c-item">
+                <div class="c-icon">FB</div>
+                <div>
+                  <div class="l">Facebook 主页</div>
+                  <a class="v" id="c-fb" href="#" target="_blank" rel="noopener">打开主页</a>
+                </div>
+              </div>
+              <div class="c-item">
+                <div class="c-icon">M</div>
+                <div>
+                  <div class="l">Messenger</div>
+                  <a class="v" id="c-msg" href="#" target="_blank" rel="noopener">直接聊天下单</a>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+              <a class="btn btn-green" id="btn-msg" href="#" target="_blank" rel="noopener">打开 Messenger</a>
+              <button class="btn btn-line" type="button" id="shareFb">分享本页到 FB</button>
+              <button class="btn btn-line" type="button" id="copyPage">复制网站链接</button>
+            </div>
+            <div class="toast" id="toast"></div>
+          </div>
+
+          <form class="form" id="leadForm">
+            <h3>快速留言（生成后复制发送）</h3>
+            <div class="row2">
+              <div class="field">
+                <label for="name">怎么称呼</label>
+                <input id="name" required placeholder="例如：小王" />
+              </div>
+              <div class="field">
+                <label for="contact">你的微信/电话</label>
+                <input id="contact" required placeholder="方便回你" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="tier">想买哪档</label>
+              <select id="tier">
+                <option value="A">A 办公 ¥3500–4500</option>
+                <option value="B" selected>B 游戏 ¥5500–8000</option>
+                <option value="C">C 高配 ¥9000–15000</option>
+                <option value="?">还没想好</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="need">用途 / 预算（可选）</label>
+              <textarea id="need" placeholder="例如：打游戏，预算 7000，要 2K"></textarea>
+            </div>
+            <button class="btn btn-green btn-block" type="submit">复制留言并打开聊天</button>
+            <p class="hint">信息只在你手机/电脑上复制，不会上传到网站服务器。</p>
+            <div class="toast" id="formToast"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div><span id="ft-name">装机工坊</span> · 组装电脑买卖</div>
+      <div>价格为参考，下单前以实际报价为准</div>
+    </div>
+  </footer>
+
+  <div class="float">
+    <a class="btn btn-line" id="float-wechat" href="#contact">加微信</a>
+    <a class="btn btn-green" id="float-msg" href="#" target="_blank" rel="noopener">Messenger</a>
+  </div>
+
+  <script>
+    const COPY = {
+      A: `【装机工坊·A办公】¥3500-4500
+CPU带核显 · 主板B760M/B650M · 内存32G DDR5 · 1TB固态 · 核显可后加独显 · 电源550-650W
+适合：办公网课轻度娱乐`,
+      B: `【装机工坊·B游戏★】¥5500-8000
+R5 7500F/7600 · B650M · 32G DDR5-6000 · 1-2TB固态 · RTX5060级 · 650-750W金牌
+适合：1080p高画质/入门2K`,
+      C: `【装机工坊·C高配】¥9000-15000
+R7或i5/i7高规格 · 32-64G · 2TB · RTX5070/5070Ti级 · 750-1000W金牌
+适合：2K高画质/剪辑直播`
+    };
+
+    const S = window.SHOP;
+    const $ = (id) => document.getElementById(id);
+
+    function fillContact() {
+      $("tb-wechat").textContent = S.wechat;
+      $("tb-phone").textContent = S.phone;
+      $("tb-hours").textContent = S.hours;
+      $("c-wechat").textContent = S.wechat;
+      $("c-hours").textContent = S.hours;
+      $("c-city").textContent = S.city;
+      $("hero-city").textContent = S.city;
+      $("ft-name").textContent = S.name;
+
+      const phoneHref = "tel:" + S.phone.replace(/[^+\d]/g, "");
+      $("c-phone").textContent = S.phone;
+      $("c-phone").href = phoneHref;
+
+      $("tb-fb").href = S.facebook;
+      $("c-fb").href = S.facebook;
+      $("tb-msg").href = S.messenger;
+      $("c-msg").href = S.messenger;
+      $("btn-msg").href = S.messenger;
+      $("float-msg").href = S.messenger;
+      $("hero-msg").href = "#contact";
+    }
+
+    function toast(el, msg) {
+      el.textContent = msg;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2800);
+    }
+
+    async function copyText(text, el, msg) {
+      try {
+        await navigator.clipboard.writeText(text);
+        if (el) toast(el, msg || "已复制");
+      } catch {
+        prompt("请手动复制：", text);
+      }
+    }
+
+    fillContact();
+
+    $("copyWechat").onclick = () => copyText(S.wechat, $("toast"), "微信号已复制");
+    $("copyPage").onclick = () => copyText(location.href.split("#")[0], $("toast"), "网站链接已复制");
+    $("shareFb").onclick = () => {
+      const url = encodeURIComponent(location.href.split("#")[0]);
+      const caption = `${S.name} 组装电脑三档报价：办公3500起 / 游戏5500起 / 高配9000起。微信 ${S.wechat} 电话 ${S.phone}`;
+      copyText(caption + "\n" + location.href.split("#")[0], $("toast"), "分享文案已复制，正在打开 Facebook…");
+      window.open("https://www.facebook.com/sharer/sharer.php?u=" + url, "_blank", "noopener,width=640,height=720");
+    };
+
+    document.querySelectorAll("[data-copy]").forEach((btn) => {
+      btn.onclick = () => copyText(COPY[btn.dataset.copy], $("toast"), "配置已复制");
+    });
+
+    document.querySelectorAll("[data-tier]").forEach((a) => {
+      a.addEventListener("click", () => {
+        const t = a.getAttribute("data-tier");
+        if (t && $("tier")) $("tier").value = t;
+      });
+    });
+
+    $("leadForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const name = $("name").value.trim();
+      const contact = $("contact").value.trim();
+      const tier = $("tier").value;
+      const need = $("need").value.trim();
+      const tierText = $("tier").options[$("tier").selectedIndex].text;
+      const msg = `【装机询价】${S.name}
+我是：${name}
+联系：${contact}
+想买：${tierText}
+说明：${need || "无"}
+---
+${COPY[tier] || "请按预算推荐"}
+请回我报价，谢谢！`;
+
+      await copyText(msg, $("formToast"), "留言已复制，正在打开 Messenger…");
+      if (S.messenger && S.messenger !== "https://m.me/") {
+        setTimeout(() => window.open(S.messenger, "_blank", "noopener"), 300);
+      }
+    };
+  </script>
+</body>
+</html>

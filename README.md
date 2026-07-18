@@ -1,34 +1,25 @@
-# 装机工坊 · 组装电脑买卖站（简洁版）
+# PC Forge · Custom Built PCs
 
-## 文件
+Simple English storefront for foreign customers.
 
-- `index.html` — 网站
-- `images/` — 产品图（hero / 三档 / 配件）
+## Live site
 
-## 打开
+https://louis10251988.github.io/pc-build-shop/
 
-```bash
-open ~/Projects/pc-build-shop/index.html
-```
+## Edit contact
 
-## 必改：联系方式
-
-打开 `index.html` 最上面：
+In `index.html`:
 
 ```js
 window.SHOP = {
-  name: "装机工坊",
-  wechat: "你的微信号",
-  phone: "你的电话",
-  facebook: "https://www.facebook.com/你的主页",
-  messenger: "https://m.me/你的主页",
-  hours: "每天 10:00–22:00",
-  city: "同城可面交 / 可快递"
+  name: "PC Forge",
+  phone: "+1 ...",
+  email: "you@email.com",
+  facebook: "https://www.facebook.com/yourpage",
+  messenger: "https://m.me/yourpage",
+  hours: "Daily 10:00 AM – 10:00 PM",
+  area: "Local pickup or shipping"
 };
 ```
 
-改完刷新页面，顶栏、联系区、按钮会一起更新。
-
-## 上线
-
-整个文件夹上传 Cloudflare Pages / Netlify / GitHub Pages（保留 `images` 目录）。
+Then commit and push to update the live link.
